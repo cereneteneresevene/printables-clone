@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaHeart, FaStar, FaDownload, FaBookmark, FaCheckCircle } from "react-icons/fa";
 import { IoIosBulb, IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { useRouter } from 'next/router'; 
 
 const models = [
   {
@@ -92,6 +93,11 @@ const models = [
 const FeaturedModels = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 4; // Sayfada gösterilecek kart sayısı
+  const router = useRouter(); // useRouter hook'u burada kullanılıyor
+
+  const handleModelClick = (id) => {
+    router.push(`/featuremodels/${id}`);
+  };
 
   const handleNext = () => {
     if (currentIndex < models.length - itemsPerPage) {
@@ -103,6 +109,7 @@ const FeaturedModels = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
+
   };
 
   return (
@@ -117,6 +124,7 @@ const FeaturedModels = () => {
             <div
               key={model.id}
               className="bg-[#1c1e21] rounded-lg overflow-hidden shadow-lg"
+              onClick={() => handleModelClick(model.id)} 
             >
 
             {/* Satıcı Bilgisi */}
